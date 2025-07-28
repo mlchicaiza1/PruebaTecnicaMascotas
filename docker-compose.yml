@@ -1,0 +1,21 @@
+services:
+    mysql:
+        image: mysql:8.0
+        container_name: mysql_pet_api
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: pets
+            MYSQL_ROOT_PASSWORD: secret
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
+        networks:
+            - pet_api_network
+
+volumes:
+    mysql_data:
+
+networks:
+    pet_api_network:
+        driver: bridge
