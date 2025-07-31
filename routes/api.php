@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
- Route::middleware(['jwt.auth'])->group(function () {
+ Route::middleware(['auth'])->group(function () {
         Route::get('/user', [AuthController::class, 'me']);
 
         Route::apiResource('person', PersonController::class);

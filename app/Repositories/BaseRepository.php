@@ -4,6 +4,7 @@ namespace App\Repositories;
 use Spatie\LaravelData\Data;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Dtos\FilterDTO;
 
 /**
  * @template TDto
@@ -48,7 +49,9 @@ abstract class BaseRepository
         $dtoClass = $this->getDtoClass();
 
         // Convertir cada modelo en su correspondiente DTO
-        return $models->map(fn($model) => $dtoClass::from($model))->toArray();
+        return collect($models)->map(
+            fn($model) => $dtoClass::from($model)
+        )->toArray();
     }
 
     /**
@@ -56,20 +59,23 @@ abstract class BaseRepository
      *
      * @return array<TDto>
      */
-    public function all(array $relations = [], array $filters = []): array
+    public function all(array $relations = [], FilterDTO $filterDto): array
     {
+        //dd($filterDto);
         $query = $this->model->query();
         if (!empty($relations)) {
             $query->with($relations);
         }
-        foreach ($filters as $field => $value) {
+        foreach ($filterDto->filters as $field => $value) {
             if (is_array($value)) {
                 $query->where(...$value);
             } else {
                 $query->where($field, $value);
             }
         }
-        return $this->toDtoCollection($query->get());
+        $result = $query->paginate($filterDto->perPage,['*'],'page',$filterDto->page);
+        $result->setCollection(collect($this->toDtoCollection($result->items())));
+        return $result->toArray();
     }
 
     /**

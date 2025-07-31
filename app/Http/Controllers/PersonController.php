@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\FilterDTO;
 use App\Dtos\PersonDto;
 use App\Http\Requests\PersonRequest;
+use App\Http\Resources\PersonCollection;
 use App\Http\Resources\PersonResource;
 use App\Services\PersonService;
 use Illuminate\Http\Request;
@@ -17,10 +19,16 @@ class PersonController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $persons = $this->personService->getAllPersons();
-        return response()->json(PersonResource::collection($persons));
+        $persons = $this->personService->getAllPersons([],
+            FilterDTO::from([
+                'page'=>$request->get('page'),
+                'perPage'=>$request->get('per_page'),
+
+            ])
+        );
+        return response()->json(new PersonCollection($persons));
     }
 
     /**

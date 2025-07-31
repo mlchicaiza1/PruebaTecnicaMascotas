@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Contracts\IPersonRepository;
+use App\Dtos\FilterDTO;
 use App\Dtos\PersonDto;
+
 
 class PersonService
 {
@@ -14,9 +16,9 @@ class PersonService
         $this->personRepository = $personRepository;
     }
 
-    public function getAllPersons(): array
+    public function getAllPersons(array $relations = [],FilterDTO $filterDto): array
     {
-        return $this->personRepository->all();
+        return $this->personRepository->all($relations,$filterDto);
     }
 
     public function findPersonById($id,array $relations = []): ?PersonDto

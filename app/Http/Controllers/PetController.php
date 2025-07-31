@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dtos\FilterDTO;
 use App\Dtos\PetDto;
 use App\Http\Requests\PetRequest;
+use App\Http\Resources\PetCollection;
 use App\Http\Resources\PetResource;
 use App\Services\PetService;
 use Illuminate\Http\Request;
@@ -17,10 +19,14 @@ class PetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pets = $this->petService->getAllPets();
-        return response()->json(PetResource::collection($pets));
+        $pets = $this->petService->getAllPets([],
+            FilterDTO::from([
+                'page'=>$request->get('page'),
+                'perPage'=>$request->get('per_page'),
+            ]));
+        return response()->json(new PetCollection($pets));
     }
 
     /**

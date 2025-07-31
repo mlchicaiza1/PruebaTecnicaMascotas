@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contracts\IPetRepository;
 use App\Dtos\PetDto;
+use App\Dtos\FilterDTO;
 
 class PetService
 {
@@ -16,9 +17,9 @@ class PetService
         $this->dogApiService = $dogApiService;
     }
 
-    public function getAllPets(): array
+    public function getAllPets(array $relations = [],FilterDTO $filterDto): array
     {
-        return $this->petRepository->all();
+        return $this->petRepository->all( $relations,$filterDto);
     }
 
     public function findPetById($id): ?PetDto
