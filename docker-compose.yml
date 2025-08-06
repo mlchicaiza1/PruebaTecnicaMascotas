@@ -17,7 +17,7 @@ services:
 
     laravel:
         build:
-            context: . # ← ahora es el directorio raíz
+            context: .
             dockerfile: Dockerfile
         container_name: laravel_pet_api
         restart: unless-stopped
@@ -37,6 +37,7 @@ services:
             - mysql
         networks:
             - pet_api_network
+        command: /bin/sh -c "composer install && php artisan serve --host=0.0.0.0 --port=8000"
 
 volumes:
     mysql_data:
