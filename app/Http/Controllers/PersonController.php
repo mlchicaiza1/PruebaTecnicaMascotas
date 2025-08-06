@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\FilterDTO;
+use App\Dtos\FilterDto;
 use App\Dtos\PersonDto;
 use App\Http\Requests\PersonRequest;
 use App\Http\Resources\PersonCollection;
@@ -22,7 +22,7 @@ class PersonController extends Controller
     public function index(Request $request)
     {
         $persons = $this->personService->getAllPersons([],
-            FilterDTO::from([
+            FilterDto::from([
                 'page'=>$request->get('page'),
                 'perPage'=>$request->get('per_page'),
 

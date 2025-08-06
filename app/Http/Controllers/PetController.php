@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\FilterDTO;
+use App\Dtos\FilterDto;
 use App\Dtos\PetDto;
 use App\Http\Requests\PetRequest;
 use App\Http\Resources\PetCollection;
@@ -22,7 +22,7 @@ class PetController extends Controller
     public function index(Request $request)
     {
         $pets = $this->petService->getAllPets([],
-            FilterDTO::from([
+            FilterDto::from([
                 'page'=>$request->get('page'),
                 'perPage'=>$request->get('per_page'),
             ]));

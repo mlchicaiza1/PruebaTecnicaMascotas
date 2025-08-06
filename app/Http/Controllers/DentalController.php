@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Dtos\FilterDTO;
+use App\Dtos\FilterDto;
 use App\Dtos\DentalDto;
 use App\Http\Requests\StoreDentalRequest;
 use App\Services\DentalService;
@@ -20,7 +20,7 @@ class DentalController extends Controller
     public function index(Request $request)
     {
         $dentals = $this->dentalService->getAllDentals([],
-            FilterDTO::from([
+            FilterDto::from([
                 'page'=>$request->get('page'),
                 'perPage'=>$request->get('per_page'),
             ]));

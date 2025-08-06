@@ -4,7 +4,7 @@ namespace App\Dtos;
 
 use Spatie\LaravelData\Data;
 
-class FilterDTO extends Data
+class FilterDto extends Data
 {
     public function __construct(
         public ?array $filters=[],

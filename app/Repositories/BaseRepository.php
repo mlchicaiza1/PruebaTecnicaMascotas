@@ -4,7 +4,7 @@ namespace App\Repositories;
 use Spatie\LaravelData\Data;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Dtos\FilterDTO;
+use App\Dtos\FilterDto;
 
 /**
  * @template TDto
@@ -59,7 +59,7 @@ abstract class BaseRepository
      *
      * @return array<TDto>
      */
-    public function all(array $relations = [], FilterDTO $filterDto): array
+    public function all(array $relations = [], FilterDto $filterDto): array
     {
         //dd($filterDto);
         $query = $this->model->query();
