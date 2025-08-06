@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DentalController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\PetController;
 use Illuminate\Support\Facades\Route;
@@ -9,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
-
+Route::apiResource('dental', DentalController::class);
  Route::middleware('auth')->group(function () {
         Route::get('/user', [AuthController::class, 'me']);
 

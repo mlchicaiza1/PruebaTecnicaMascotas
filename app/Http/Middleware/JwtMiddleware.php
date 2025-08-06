@@ -11,10 +11,10 @@ class JwtMiddleware
 
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check())
+        /*if (!auth()->check())
         {
             return response()->json(['error' => 'Unauthorized - Admins only!'], 403);
-        }
+        }*/
         return $next($request);
     }
 }
